@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:my_matrix/page/SecondPage.dart';
 
 void main() {
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
+    return GetMaterialApp(home: HomePage());
   }
 }
 
@@ -60,15 +61,12 @@ class HomePage extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SecondPage(
-                            isKorean: false,
-                            name: "JOHN",
-                            age: 20,
-                            gender: "F",
-                          )));
+              Get.to(SecondPage(
+                isKorean: false,
+                name: "JOHN",
+                age: 20,
+                gender: "F",
+              ));
             },
             child: Container(
               child: Text("goToSecond"),
