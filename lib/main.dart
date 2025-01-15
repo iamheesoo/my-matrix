@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:my_matrix/page/SecondPage.dart';
+import 'package:my_matrix/page/check_list_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,61 +20,26 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "hello",
-          style: TextStyle(color: Colors.red),
+        appBar: AppBar(
+          title: Text(
+            "hello",
+            style: TextStyle(color: Colors.grey),
+          ),
         ),
-      ),
-      body: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 100,
-            height: 100,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Container(color: Colors.purple),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(color: Colors.pink),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(color: Colors.yellow),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.green,
-          ),
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.blue,
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.to(SecondPage(
-                isKorean: false,
-                name: "JOHN",
-                age: 20,
-                gender: "F",
-              ));
-            },
-            child: Container(
-              child: Text("goToSecond"),
-              color: Colors.grey,
-            ),
-          )
-        ],
-      ),
-    );
+        body:
+        Column(
+          children: [
+            Expanded(
+                child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [Expanded(child: CheckListView()), Expanded(child: CheckListView())],
+            )),
+            Expanded(
+                child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [Expanded(child: CheckListView()), Expanded(child: CheckListView())],
+            )),
+          ],
+        ));
   }
 }
