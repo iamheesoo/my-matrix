@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:my_matrix/main_viewmodel.dart';
+import 'package:my_matrix/matrix.dart';
 import 'package:my_matrix/page/check_list_view.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider.value(
+      value: MainViewModel(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,6 +23,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<MainViewModel>(context);
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -52,8 +57,8 @@ class HomePage extends StatelessWidget {
                   width: halfWidth,
                   height: halfHeight,
                   child: CheckListView(
-                    title: "Urgent, Important",
-                    checkList: List.generate(10, (index) => "Item $index"),
+                    matrix: Matrix.urgentImportant,
+                    taskList: viewModel.getTaskList(Matrix.urgentImportant),
                   )),
               // top-right
               Positioned(
@@ -62,8 +67,8 @@ class HomePage extends StatelessWidget {
                   width: halfWidth,
                   height: halfHeight,
                   child: CheckListView(
-                    title: "Not Urgent, Important",
-                    checkList: List.empty(),
+                    matrix: Matrix.notUrgentImportant,
+                    taskList: viewModel.getTaskList(Matrix.notUrgentImportant),
                   )),
               // bottom-left
               Positioned(
@@ -72,8 +77,8 @@ class HomePage extends StatelessWidget {
                   width: halfWidth,
                   height: halfHeight,
                   child: CheckListView(
-                    title: "Urgent, Not Important",
-                    checkList: List.generate(10, (index) => "Item $index"),
+                    matrix: Matrix.urgentNotImportant,
+                    taskList: viewModel.getTaskList(Matrix.urgentNotImportant),
                   )),
               // bottom-right
               Positioned(
@@ -82,8 +87,9 @@ class HomePage extends StatelessWidget {
                   width: halfWidth,
                   height: halfHeight,
                   child: CheckListView(
-                    title: "Not Urgent, Not Important",
-                    checkList: List.generate(100, (index) => "Item $index"),
+                    matrix: Matrix.notUrgentNotImportant,
+                    taskList:
+                        viewModel.getTaskList(Matrix.notUrgentNotImportant),
                   ))
             ],
           );
