@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:my_matrix/main_viewmodel.dart';
 import 'package:my_matrix/matrix.dart';
 import 'package:my_matrix/page/check_list_view.dart';
+import 'package:my_matrix/task.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -26,9 +27,51 @@ class HomePage extends StatelessWidget {
     final viewModel = Provider.of<MainViewModel>(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text(
-            "hello",
-            style: TextStyle(color: Colors.grey),
+          title: GestureDetector(
+            child: const Text(
+              "Add Todo",
+              style: TextStyle(color: Colors.grey),
+            ),
+            onTap: () {
+              // todo jhs show dialog
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        height: 200,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(16),
+                        child: Column(
+                          children: [
+                            TextField(
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: "Title"),
+                            ),
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text("close")),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      // todo jhs db에 저장
+                                      Task task = Task(isChecked: false, title: "editText");
+                                      viewModel.addTask(Matrix.urgentImportant, task);
+                                    },
+                                    child: Text("add"))
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  });
+            },
           ),
         ),
         body: LayoutBuilder(builder: (context, constraints) {
